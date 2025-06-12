@@ -1,5 +1,4 @@
-from fastapi import FastAPI, HTTPException
-from typing import List, Optional
+from fastapi import FastAPI
 import requests
 from bs4 import BeautifulSoup
 import uvicorn
@@ -41,7 +40,7 @@ def convert_time(time_str):
         t1 += 12
     return f"{t1:02d}:{t2:02d}"
 
-async def fetch_buses_from_page(session, from_station: str, to_station: str, page: int) -> List[Bus]:
+async def fetch_buses_from_page(session, from_station: str, to_station: str, page: int):
     url = f"https://www.kbuses.in/v3/Find/source/{from_station}/destination/{to_station}/type/all/timing/all?page={page}"
     async with session.get(url) as response:
         html = await response.text()
